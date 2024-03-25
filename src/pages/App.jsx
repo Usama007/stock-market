@@ -64,7 +64,14 @@ export default function App() {
         if (apple) {
           setselectedCompany(apple)
         } else {
-          setselectedCompany(response?.data?.[0])
+          const responseApple = await axios.get(
+            `https://cloud.iexapis.com/stable/stock/AAPL/quote?token=${import.meta.env.VITE_TOKEN}`
+          );
+
+          if(responseApple?.data){
+            setselectedCompany(responseApple?.data)
+            setcompanyList([responseApple?.data,...response?.data])
+          }
         }
 
       }
