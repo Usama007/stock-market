@@ -29,7 +29,7 @@ export default function CompanyInfo({ companyInfo, companyInfoLoading }) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <a href={companyInfo?.website}>
+                <a href={companyInfo?.website} target="_blank">
                     <Button size="small">VISIT WEBSITE</Button>
                 </a>
             </CardActions>
