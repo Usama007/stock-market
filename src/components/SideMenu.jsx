@@ -9,7 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { Drawer, List, Skeleton, useTheme } from '@mui/material';
 import { DrawerHeader, drawerWidth } from '../misc/utils';
 
-export default function SideMenu({ open, setOpen, companyList, setselectedCompany, selectedCompany, companyListLoading }) {
+export default function SideMenu({ open, setOpen, companyList, setselectedSymbol, selectedCompany, companyListLoading }) {
     const theme = useTheme();
 
     const handleDrawerClose = () => {
@@ -55,7 +55,7 @@ export default function SideMenu({ open, setOpen, companyList, setselectedCompan
                             === text?.symbol
                             && theme.palette.action.selected
                     }}>
-                        <ListItemButton onClick={() => { setOpen(false); setselectedCompany(text) }}>
+                        <ListItemButton onClick={() => { setOpen(false); setselectedSymbol(text?.symbol) }}>
                             <ListItemText primary={text?.companyName} />
                         </ListItemButton>
                     </ListItem>

@@ -1,8 +1,10 @@
-import { Box, Card, CardContent, FormControlLabel, Radio, RadioGroup, Skeleton, useTheme } from '@mui/material'
+import { Box, Card, CardContent, FormControlLabel, Grid, Radio, RadioGroup, Skeleton, Stack, useTheme } from '@mui/material'
 import React from 'react'
 import Plot from 'react-plotly.js';
 
-export default function Graph({ data, setrange, range ,graphLoading}) {
+
+
+export default function Graph({ data, setrange, range, graphLoading }) {
     const theme = useTheme();
     const backgroundColor = theme.palette.background.default;
 
@@ -11,6 +13,10 @@ export default function Graph({ data, setrange, range ,graphLoading}) {
     const highPrices = data.map(entry => entry.high);
     const lowPrices = data.map(entry => entry.low);
     const closePrices = data.map(entry => entry.close);
+
+  
+
+  
 
     const layout = {
         plot_bgcolor: backgroundColor,
@@ -21,14 +27,14 @@ export default function Graph({ data, setrange, range ,graphLoading}) {
         setrange(e.target.value)
     }
 
-    if(graphLoading){
-        return <Skeleton variant="rectangular" width={'100%'} height={'85vh'} sx={{mb:3}}/>
+    if (graphLoading) {
+        return <Skeleton variant="rectangular" width={'100%'} height={'50vh'}  />
     }
 
     return (
         <Card>
-            <CardContent sx={{ height: '85vh' }}>
-                <Box mb={3} height={'45%'}>
+            <CardContent sx={{ height: '50vh' }}>
+                <Box  height={'95%'}>
                     <Plot
 
                         data={[
@@ -68,48 +74,7 @@ export default function Graph({ data, setrange, range ,graphLoading}) {
                         ]}
                         layout={layout}
                         style={{ width: '100%', height: '100%' }} />
-                </Box>
-                <Box mb={2} height={'45%'}>
-                    <Plot
-                        data={[
-                            {
-                                x: timestamps,
-                                y: openPrices,
-                                type: 'bar',
-                                mode: 'lines',
-                                name: 'Open',
-                                marker: { color: 'blue' },
-                            },
-                            {
-                                x: timestamps,
-                                y: highPrices,
-                                type: 'bar',
-                                mode: 'lines',
-                                name: 'High',
-                                marker: { color: 'green' },
-                            },
-                            {
-                                x: timestamps,
-                                y: lowPrices,
-                                type: 'bar',
-                                mode: 'lines',
-                                name: 'Low',
-                                marker: { color: 'red' },
-                            },
-                            {
-                                x: timestamps,
-                                y: closePrices,
-                                type: 'bar',
-                                mode: 'lines',
-                                name: 'Close',
-                                marker: { color: 'yellow' },
-
-                            },
-                        ]}
-                        layout={layout}
-                        style={{ width: '100%', height: '100%' }}
-                    />
-                </Box>
+                </Box>         
                 <Box height={'10%'}>
                     <RadioGroup
                         row

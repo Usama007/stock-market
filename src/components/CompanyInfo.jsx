@@ -4,35 +4,86 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Skeleton } from '@mui/material';
+import { Divider, List, ListItem, Skeleton } from '@mui/material';
+
 
 export default function CompanyInfo({ companyInfo, companyInfoLoading }) {
 
-    if(companyInfoLoading){
-        return <Skeleton variant="rectangular" width={'100%'} height={200} sx={{mb:3}}/>
+    const convertToMillionBillionTrillion = (value)=> {
+        if (value >= 1000000 && value < 1000000000) {
+            return (value / 1000000).toFixed(2) + "M";
+        } else if (value >= 1000000000 && value < 1000000000000) {
+            return (value / 1000000000).toFixed(2) + "B";
+        } else if (value >= 1000000000000) {
+            return (value / 1000000000000).toFixed(2) + "T";
+        } else {
+            return value.toFixed(2);
+        }
+    }
+
+    if (companyInfoLoading) {
+        return <Skeleton variant="rectangular" width={'100%'} height={200} sx={{ mb: 3 }} />
     }
 
     return (
         <Card sx={{ width: '100%', mb: 3 }} >
             <CardContent>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    {companyInfo?.symbol}
-                </Typography>
-                <Typography variant="h5" component="div">
-                    {companyInfo?.companyName}
-                </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              
+          
+                {/* <Typography sx={{ mb: 1.5 }} color="text.secondary">
                     {companyInfo?.address} {companyInfo?.address2} {companyInfo?.city} {companyInfo?.country}
                 </Typography>
                 <Typography variant="body2">
                     {companyInfo?.industry}
-                </Typography>
+                </Typography> */}
+                <List dense={false}>
+                
+                    <ListItem
+                        secondaryAction={
+                            <Typography variant='subtitle2'> {convertToMillionBillionTrillion(companyInfo?.avgTotalVolume)}  {companyInfo?.currency}</Typography>
+                        }
+                    >
+                        <Typography variant='overline'>AVG VOLUME</Typography>
+                    </ListItem>
+                    <Divider />
+                    <Divider />
+                    <ListItem
+                        secondaryAction={
+                            <Typography variant='subtitle2'> {companyInfo?.previousClose?.toFixed(2)}  {companyInfo?.currency}</Typography>
+                        }
+                    >
+                        <Typography variant='overline'>PREVIOUS CLOSE</Typography>
+                    </ListItem>
+                    <Divider />
+                    <Divider />
+                    <ListItem
+                        secondaryAction={
+                            <Typography variant='subtitle2'> {convertToMillionBillionTrillion(companyInfo?.marketCap)} {companyInfo?.currency}</Typography>
+                        }
+                    >
+                        <Typography variant='overline'>MARKET CAP</Typography>
+                    </ListItem>
+                    <Divider />
+           
+                    <ListItem
+                        secondaryAction={
+                            <Typography variant='subtitle2'> {companyInfo?.peRatio}</Typography>
+                        }
+                    >
+                        <Typography variant='overline'>P/E RATIO</Typography>
+                    </ListItem>
+                    <Divider />
+                    <ListItem
+                        secondaryAction={
+                            <Typography variant='subtitle2'> {companyInfo?.primaryExchange}</Typography>
+                        }
+                    >
+                        <Typography variant='overline'>PRIMARY EXCHANGE</Typography>
+                    </ListItem>
+                    <Divider />
+                </List>
             </CardContent>
-            <CardActions>
-                <a href={companyInfo?.website} target="_blank">
-                    <Button size="small">VISIT WEBSITE</Button>
-                </a>
-            </CardActions>
+
         </Card>
     );
 }

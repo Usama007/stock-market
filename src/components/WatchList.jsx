@@ -34,7 +34,7 @@ const columns = [
 ];
 
 
-export default function DataTable({ watchlist,watchlistLoading }) {
+export default function WatchList({ watchlist,watchlistLoading }) {
 
     if(watchlistLoading){
         return <Skeleton variant="rectangular" width={'100%'} height={550} sx={{mb:3}}/>
@@ -48,10 +48,10 @@ export default function DataTable({ watchlist,watchlistLoading }) {
                     getRowId={row => row?.symbol}
                     initialState={{
                         pagination: {
-                            paginationModel: { page: 0, pageSize: 7 },
+                            paginationModel: { page: 0, pageSize: 5},
                         },
                     }}
-                    pageSizeOptions={[7]}
+                    pageSizeOptions={[5]}
                 />    
             </CardContent>
         </Card>
