@@ -23,7 +23,7 @@ export default function App() {
 
 
   const [companyInfoLoading, setcompanyInfoLoading] = useState(true)
-  const [watchlistLoading, setwatchlistLoading] = useState(true)
+  const [watchlistLoading, setwatchlistLoading] = useState(false)
   const [graphLoading, setgraphLoading] = useState(true)
   const [companyListLoading, setcompanyListLoading] = useState(true)
   const [incomeStatementLoading, setincomeStatementLoading] = useState(true)
@@ -52,6 +52,8 @@ export default function App() {
   useEffect(() => {
     if (companyList?.length > 0) {
       fetchWatchList()
+    } else {
+      fetchWatchList('aapl')
     }
   }, [companyList]);
 
@@ -131,13 +133,16 @@ export default function App() {
   const fetchWatchList = async (param) => {
     try {
       setwatchlistLoading(true)
-      const symbolsString = companyList.map(item => item.symbol).join(',');
+      const symbolsString = !param ? companyList.map(item => item.symbol).join(',') : 'AAPL,GOOGL,MSFT,TSLA,FB,BRK.B,T';
       const response = await axios.get(
         `https://api.iex.cloud/v1/data/core/quote/${symbolsString}?token=${import.meta.env.VITE_TOKEN}`
       );
       if (response?.data) {
         setwatchlist(response.data);
         setwatchlistLoading(false)
+      } else {
+        setwatchlistLoading(false)
+
       }
     } catch (error) {
       setwatchlistLoading(false)
@@ -151,14 +156,14 @@ export default function App() {
     <ThemeProvider theme={darkTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <Header setOpen={setOpen} open={open} selectedCompany={selectedCompany} companyInfoLoading={companyInfoLoading} />
+        <Header setOpen={setOpen} open={open} selectedCompany={selectedCompany} companyInfoLoading={companyInfoLoading} companyList={companyList} />
         <SideMenu setOpen={setOpen} open={open} companyList={companyList} selectedCompany={selectedCompany} setselectedSymbol={setselectedSymbol} companyListLoading={companyListLoading} />
         <Main open={open} >
           <DrawerHeader />
           <Grid container spacing={3}>
             <Grid item xs={12} md={8} lg={9}>
               {data && <Graph data={data} setrange={setrange} range={range} graphLoading={graphLoading} />}
-              <IncomeStatement quarterlyData={quarterlyData}  annualData={annualData} incomeStatementLoading={incomeStatementLoading}/>
+              <IncomeStatement quarterlyData={quarterlyData} annualData={annualData} incomeStatementLoading={incomeStatementLoading} />
             </Grid>
             <Grid item xs={12} md={4} lg={3}>
               <CompanyInfo companyInfo={selectedCompany} companyInfoLoading={companyInfoLoading} />
