@@ -133,12 +133,15 @@ export default function App() {
   const fetchWatchList = async (param) => {
     try {
       setwatchlistLoading(true)
-      const symbolsString = !param ? companyList.map(item => item.symbol).join(',') : 'AAPL,GOOGL,MSFT,TSLA,FB,BRK.B,T';
+      const symbolsString = !param ? companyList.map(item => item.symbol).join(',') : 'AAPL,GOOGL,MSFT,TSLA,T,JPM';
       const response = await axios.get(
         `https://api.iex.cloud/v1/data/core/quote/${symbolsString}?token=${import.meta.env.VITE_TOKEN}`
       );
       if (response?.data) {
         setwatchlist(response.data);
+        if(param){
+          setcompanyList(response?.data)
+        }
         setwatchlistLoading(false)
       } else {
         setwatchlistLoading(false)
