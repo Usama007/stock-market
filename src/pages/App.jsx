@@ -29,11 +29,6 @@ export default function App() {
   const [incomeStatementLoading, setincomeStatementLoading] = useState(true)
 
   useEffect(() => {
-    console.log('USAMA', selectedCompany);
-  }, [selectedCompany])
-
-
-  useEffect(() => {
     fetchCompanies();
   }, []);
 
@@ -52,9 +47,7 @@ export default function App() {
   useEffect(() => {
     if (companyList?.length > 0) {
       fetchWatchList()
-    } else {
-      fetchWatchList('aapl')
-    }
+    } 
   }, [companyList]);
 
   const fetchCompanies = async () => {
@@ -65,7 +58,9 @@ export default function App() {
       );
       setcompanyList(response?.data);
       setcompanyListLoading(false)
-
+      if(response?.data?.length === 0){
+          fetchWatchList('aapl')
+      }
     } catch (error) {
       setcompanyListLoading(false)
       console.error('Error fetching data: ', error);
@@ -116,21 +111,15 @@ export default function App() {
       const responseAnl = await axios.get(
         `https://api.iex.cloud/v1/data/core/income/${selectedSymbol}/annual?last=4&token=${import.meta.env.VITE_TOKEN}`
       );
-
       setannualData(responseAnl?.data)
-
-
-
       setincomeStatementLoading(false)
-
-
     } catch (error) {
       console.error('Error fetching data: ', error);
 
     }
   }
 
-  const fetchWatchList = async (param) => {
+  const fetchWatchList = async (param=null) => {
     try {
       setwatchlistLoading(true)
       const symbolsString = !param ? companyList.map(item => item.symbol).join(',') : 'AAPL,GOOGL,MSFT,TSLA,T,JPM';
