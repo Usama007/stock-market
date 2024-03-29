@@ -54,7 +54,7 @@ export default function App() {
     try {
       setcompanyListLoading(true);
       const response = await axios.get(
-        `https://sandbox.iexapis.com/stable/stock/market/list/mostactive?token=${import.meta.env.VITE_TOKEN}`
+        `https://cloud.iexapis.com/stable/stock/market/list/mostactive?token=${import.meta.env.VITE_TOKEN}`
       );
       setcompanyList(response?.data);
       setcompanyListLoading(false)
