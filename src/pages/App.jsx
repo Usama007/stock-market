@@ -34,11 +34,12 @@ export default function App() {
     if (selectedSymbol) {
       fetchEarningData()
       fetchCompanyInfo()
+      setrange('1y')
     }
   }, [selectedSymbol])
 
   useEffect(() => {
-    if (selectedSymbol) {
+    if (selectedSymbol) {   
       fetchData()
     }
   }, [range])
