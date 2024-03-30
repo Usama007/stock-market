@@ -15,7 +15,7 @@ export default function App() {
   const [data, setData] = useState([]);
   const [earningData, setearningData] = useState([])
   const [range, setrange] = useState('1y')
-  const [earningRange, setearningRange] = useState('10y')
+  const [earningRange, setearningRange] = useState('3M')
   const [companyInfo, setcompanyInfo] = useState(null)
 
   const [graphLoading, setgraphLoading] = useState(true)
@@ -35,6 +35,7 @@ export default function App() {
       fetchEarningData()
       fetchCompanyInfo()
       setrange('1y')
+    
     }
   }, [selectedSymbol])
 
@@ -64,7 +65,7 @@ export default function App() {
     try {
       setearningLoading(true);
       const response = await axios.get(
-        `https://api.marketdata.app/v1/stocks/earnings/${selectedSymbol}?from=${earningFrom}&to=${earningTo}&token=${import.meta.env.VITE_TOKEN}`
+        `https://api.marketdata.app/v1/stocks/candles/D/${selectedSymbol}?from=${earningFrom}&to=${earningTo}&token=${import.meta.env.VITE_TOKEN}`
       );
 
       setearningData(response?.data)
@@ -112,7 +113,7 @@ export default function App() {
 
             </Grid>
             <Grid item xs={12} md={6} lg={8}>
-              {earningData && <IncomeStatement earningData={earningData} earningLoading={earningLoading} />}
+              {earningData && <IncomeStatement earningData={earningData} earningLoading={earningLoading} earningRange={earningRange}/>}
               {/* <CompanyInfo companyInfo={selectedCompany} companyInfoLoading={companyInfoLoading} />
             <WatchList watchlist={watchlist} watchlistLoading={watchlistLoading} /> */}
             </Grid>

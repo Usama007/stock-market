@@ -21,23 +21,23 @@ ChartJS.register(
     Legend
 );
 
-const IncomeStatement = ({ earningData, earningLoading }) => {
+const IncomeStatement = ({ earningData, earningLoading ,earningRange}) => {
     const chartData = {
-        labels: earningData?.date?.map(date => new Date(date * 1000).toLocaleDateString()), // Convert Unix timestamps to date strings
+        labels: earningData?.t?.map(date => new Date(date * 1000).toLocaleDateString()), // Convert Unix timestamps to date strings
         datasets: [
             {
-                label: 'Reported EPS',
-                data: earningData?.reportedEPS,
+                label: 'OPEN',
+                data: earningData?.o,
                 backgroundColor: 'rgba(95, 12, 132, .8)',
                 borderWidth: 1,
-                barThickness: 10,
+                barThickness: 8,
             },
             {
-                label: 'Estimated EPS',
-                data: earningData?.estimatedEPS,
+                label: 'CLOSE',
+                data: earningData?.c,
                 backgroundColor: 'rgba(54, 162, 235, 0.6)',
                 borderWidth: 1,
-                barThickness: 10
+                barThickness: 8
             },
         ],
     };
@@ -69,7 +69,7 @@ const IncomeStatement = ({ earningData, earningLoading }) => {
                         plugins: {
                             title: {
                                 display: true,
-                                text: 'Last 10 years Earning Data',
+                                text: `Last 3 Months Data`,
                                 font: {
                                     size: 18,
                                 }
