@@ -10,7 +10,7 @@ import CompanyInfo from '../components/CompanyInfo';
 import IncomeStatement from '../components/IncomeStatement';
 
 export default function App() {
-  const [companyList, setcompanyList] = useState(['AAPL', 'GOOGL', 'MSFT', 'TSLA', 'T', 'JPM'])
+  const [companyList, setcompanyList] = useState(['AAPL', 'GOOGL', 'MSFT', 'TSLA', 'T', 'META', 'JPM'])
   const [selectedSymbol, setselectedSymbol] = useState('AAPL')
   const [data, setData] = useState([]);
   const [earningData, setearningData] = useState([])
@@ -33,14 +33,13 @@ export default function App() {
   useEffect(() => {
     if (selectedSymbol) {
       fetchEarningData()
-      fetchCompanyInfo()
-      setrange('1y')
-    
+      fetchCompanyInfo()   
+      fetchData()
     }
   }, [selectedSymbol])
 
   useEffect(() => {
-    if (selectedSymbol) {   
+    if (selectedSymbol) {
       fetchData()
     }
   }, [range])
@@ -70,6 +69,7 @@ export default function App() {
 
       setearningData(response?.data)
       setearningLoading(false)
+    
 
     } catch (error) {
       setearningLoading(false)
@@ -113,11 +113,11 @@ export default function App() {
 
             </Grid>
             <Grid item xs={12} md={6} lg={8}>
-              {earningData && <IncomeStatement earningData={earningData} earningLoading={earningLoading} earningRange={earningRange}/>}
+              {earningData && <IncomeStatement earningData={earningData} earningLoading={earningLoading} earningRange={earningRange} />}
               {/* <CompanyInfo companyInfo={selectedCompany} companyInfoLoading={companyInfoLoading} />
             <WatchList watchlist={watchlist} watchlistLoading={watchlistLoading} /> */}
             </Grid>
-            <Grid item xs={12} md={6} lg={4} sx={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+            <Grid item xs={12} md={6} lg={4} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <CompanyInfo companyInfo={companyInfo} companyInfoLoading={companyInfoLoading} />
             </Grid>
           </Grid>

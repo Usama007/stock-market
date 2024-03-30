@@ -101,6 +101,8 @@ export const getFullForm = abbreviation => {
           return 'AT&T Inc.';
       case 'JPM':
           return 'JPMorgan Chase & Co.';
+          case 'META':
+          return 'Meta Platforms, Inc. (formerly Facebook, Inc.)';
       default:
           return 'Unknown abbreviation';
   }

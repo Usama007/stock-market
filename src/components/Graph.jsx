@@ -18,6 +18,7 @@ export default function Graph({ data, setrange, range, graphLoading }) {
     const closePrices = data.c;
 
     const handleChange = (e) => {
+        setrange(null)
         setrange(e.target.value)
     }
 
