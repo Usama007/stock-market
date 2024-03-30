@@ -24,7 +24,7 @@ const AppBar = styled(MuiAppBar, {
 
 
 
-export default function Header({ open, setOpen, selectedCompany, companyInfoLoading ,companyList}) {
+export default function Header({ open, setOpen, companyName, companyInfoLoading ,companyList}) {
   const theme = useTheme();
 
   const handleDrawerOpen = () => {
@@ -46,7 +46,7 @@ export default function Header({ open, setOpen, selectedCompany, companyInfoLoad
         </IconButton>
         )}
         {companyInfoLoading ? (<CircularProgress />) : (<Typography variant="h6" noWrap component="div">
-          {selectedCompany?.companyName}
+          {companyName}
         </Typography>)}
       </Toolbar>
     </AppBar>

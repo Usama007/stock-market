@@ -7,9 +7,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { Drawer, List, Skeleton, useTheme } from '@mui/material';
-import { DrawerHeader, drawerWidth } from '../misc/utils';
+import { DrawerHeader, drawerWidth, getFullForm } from '../misc/utils';
 
-export default function SideMenu({ open, setOpen, companyList, setselectedSymbol, selectedCompany, companyListLoading }) {
+export default function SideMenu({ open, setOpen, companyList, setselectedSymbol, selectedSymbol }) {
     const theme = useTheme();
 
     const handleDrawerClose = () => {
@@ -46,21 +46,19 @@ export default function SideMenu({ open, setOpen, companyList, setselectedSymbol
                 </IconButton>
             </DrawerHeader>
             <Divider />
-            {companyListLoading ? (<>
-                {generateSkeleton()}
-            </>) : (<List >
+            <List >
                 {companyList.map((text, index) => (
                     <ListItem key={index} disablePadding sx={{
-                        bgcolor: selectedCompany?.symbol
-                            === text?.symbol
+                        bgcolor: selectedSymbol
+                            === text
                             && theme.palette.action.selected
                     }}>
-                        <ListItemButton onClick={() => { setOpen(false); setselectedSymbol(text?.symbol) }}>
-                            <ListItemText primary={text?.companyName} />
+                        <ListItemButton onClick={() => { setOpen(false); setselectedSymbol(text) }}>
+                            <ListItemText primary={getFullForm(text)} />
                         </ListItemButton>
                     </ListItem>
                 ))}
-            </List>)}
+            </List>
         </Drawer>
     )
 }

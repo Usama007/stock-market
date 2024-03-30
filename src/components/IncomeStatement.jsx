@@ -1,6 +1,4 @@
 import React from 'react';
-import { Card, CardContent, Grid, Skeleton } from '@mui/material';
-import moment from 'moment';
 import { Bar } from 'react-chartjs-2';
 
 import {
@@ -12,6 +10,7 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import { Card, CardContent, Skeleton } from '@mui/material';
 
 ChartJS.register(
     CategoryScale,
@@ -22,117 +21,78 @@ ChartJS.register(
     Legend
 );
 
-export default function IncomeStatement({ quarterlyData, annualData, incomeStatementLoading }) {
-
-    const chartDataQtr = {
-        labels: quarterlyData.map((item) => moment(item.date).format('MMM YY')),
+const IncomeStatement = ({ earningData, earningLoading }) => {
+    const chartData = {
+        labels: earningData?.date?.map(date => new Date(date * 1000).toLocaleDateString()), // Convert Unix timestamps to date strings
         datasets: [
             {
-                label: 'Revenue',
-                backgroundColor: '#fabd05',
-                hoverBackgroundColor: '#fabd05e0',
-                data: quarterlyData.map((item) => item.totalRevenue),
+                label: 'Reported EPS',
+                data: earningData?.reportedEPS,
+                backgroundColor: 'rgba(95, 12, 132, .8)',
+                borderWidth: 1,
+                barThickness: 10,
             },
             {
-                label: 'Net Income',
-                backgroundColor: '#4285f4',
-                hoverBackgroundColor: '#2962ff',
-                data: quarterlyData.map((item) => item.netIncome),
+                label: 'Estimated EPS',
+                data: earningData?.estimatedEPS,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderWidth: 1,
+                barThickness: 10
             },
         ],
     };
 
-    const chartDataAnl = {
-        labels: annualData.map((item) => moment(item.date).format('MMM YY')),
-        datasets: [
-            {
-                label: 'Revenue',
-                backgroundColor: '#324aa8',
-                hoverBackgroundColor: '#3263a8',
-                data: annualData.map((item) => item.totalRevenue),
-            },
-            {
-                label: 'Net Income',
-                backgroundColor: '#32a852',
-                hoverBackgroundColor: '#32a8a4',
-                data: annualData.map((item) => item.netIncome),
-            },
-        ],
-    };
-
-    const chartOptionsQtr = {
-        scales: {
-            y: {
-                display: false,
-            }
-        },
-        plugins: {
-            title: {
-                display: true,
-                text: 'Quarterly Data Chart',
-                font: {
-                    size: 18,
-                }
-            }
-        },
-        tooltips: {
-            mode: 'index',
-            intersect: false,
-        },
-    };
-
-    const chartOptionsAnl = {
-        scales: {
-            y: {
-                display: false,
-            }
-        },
-        plugins: {
-            title: {
-                display: true,
-                text: 'Annual Data Chart',
-                font: {
-                    size: 18,
-                }
-            }
-        },
-        tooltips: {
-            mode: 'index',
-            intersect: false,
-        },
-    };
-
-
-    if (incomeStatementLoading) {
-        return (
-            <Grid container spacing={2} mt={1}>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
-                    <Skeleton variant="rectangular" width={'100%'} height={250} sx={{ mb: 3 }} />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
-                    <Skeleton variant="rectangular" width={'100%'} height={250} sx={{ mb: 3 }} />
-                </Grid>
-            </Grid>
-        )
+    if (earningLoading) {
+        return <Skeleton variant="rectangular" width={'100%'} height={'38vh'} />;
     }
 
-
     return (
-        <Grid container spacing={2} mt={1}>
-            <Grid item xs={12} sm={12} md={6} lg={6}>
-                <Card sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <CardContent >
-                        <Bar data={chartDataQtr} options={chartOptionsQtr} style={{ height: 250, width: '100%' }} />
-                    </CardContent>
-                </Card>
-            </Grid>
-            <Grid item xs={12} sm={12} md={6} lg={6}>
-                <Card sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <CardContent>
-                        <Bar data={chartDataAnl} options={chartOptionsAnl} style={{ height: 250, width: '100%' }} />
-                    </CardContent>
-                </Card>
-            </Grid>
-        </Grid>
-    )
-}
+        <Card>
+            <CardContent style={{ height: '38vh', overflow: 'auto' }} >
+                <Bar
+                    data={chartData}
+                    options={{
+                        indexAxis: 'x',
+                        scales: {
+                            x: {
+                               display:false
+                            },
+                            y: {
+                                stacked: false,
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'EPS',
+                                },
+                            },
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Last 10 years Earning Data',
+                                font: {
+                                    size: 18,
+                                }
+                            },
+                            legend: {
+                                display: true,
+                                position: 'top',
+                            },
+                        },
+                        maintainAspectRatio: false, // To allow chart to overflow its container
+                        responsive: true,
+                        // Adjust height of chart container
+                        layout: {
+                            padding: {
+                                // top: 40,
+                                // bottom: 40,
+                            },
+                        },
+                    }}
+                />
+            </CardContent>
+        </Card>
+    );
+};
+
+export default IncomeStatement;

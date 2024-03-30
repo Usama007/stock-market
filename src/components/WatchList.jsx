@@ -20,7 +20,7 @@ const columns = [
         )
     },
     {
-        field: 'changePercent',
+        field: 'changepct',
         headerName: 'CHG%',
         headerAlign: 'right',
         align: 'right',

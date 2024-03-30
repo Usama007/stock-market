@@ -2,39 +2,33 @@ import { Box, Card, CardContent, FormControlLabel, Grid, Radio, RadioGroup, Skel
 import React from 'react'
 import Plot from 'react-plotly.js';
 
-
-
 export default function Graph({ data, setrange, range, graphLoading }) {
     const theme = useTheme();
     const backgroundColor = theme.palette.background.default;
-
-    const timestamps = data.map(entry => entry.date);
-    const openPrices = data.map(entry => entry.open);
-    const highPrices = data.map(entry => entry.high);
-    const lowPrices = data.map(entry => entry.low);
-    const closePrices = data.map(entry => entry.close);
-
-  
-
-  
 
     const layout = {
         plot_bgcolor: backgroundColor,
         paper_bgcolor: backgroundColor,
     };
 
+    const timestamps = data.t;
+    const openPrices = data.o;
+    const highPrices = data.h;
+    const lowPrices = data.l;
+    const closePrices = data.c;
+
     const handleChange = (e) => {
         setrange(e.target.value)
     }
 
     if (graphLoading) {
-        return <Skeleton variant="rectangular" width={'100%'} height={'50vh'}  />
+        return <Skeleton variant="rectangular" width={'100%'} height={'45vh'} />
     }
 
     return (
         <Card>
-            <CardContent sx={{ height: '50vh' }}>
-                <Box  height={'95%'}>
+            <CardContent sx={{ height: '45vh' }}>
+                <Box height={'95%'}>
                     <Plot
 
                         data={[
@@ -44,7 +38,7 @@ export default function Graph({ data, setrange, range, graphLoading }) {
                                 type: 'scatter',
                                 mode: 'lines',
                                 name: 'Open',
-                                marker: { color: 'blue' },
+                                marker: { color: '#4facfe' },
                             },
                             {
                                 x: timestamps,
@@ -52,7 +46,7 @@ export default function Graph({ data, setrange, range, graphLoading }) {
                                 type: 'scatter',
                                 mode: 'lines',
                                 name: 'High',
-                                marker: { color: 'green' },
+                                marker: { color: '#43e97b' },
                             },
                             {
                                 x: timestamps,
@@ -60,7 +54,7 @@ export default function Graph({ data, setrange, range, graphLoading }) {
                                 type: 'scatter',
                                 mode: 'lines',
                                 name: 'Low',
-                                marker: { color: 'red' },
+                                marker: { color: '#ff5858' },
                             },
                             {
                                 x: timestamps,
@@ -68,13 +62,14 @@ export default function Graph({ data, setrange, range, graphLoading }) {
                                 type: 'scatter',
                                 mode: 'lines',
                                 name: 'Close',
-                                marker: { color: 'yellow' },
+                                marker: { color: '#f857a6' },
 
                             },
                         ]}
                         layout={layout}
                         style={{ width: '100%', height: '100%' }} />
-                </Box>         
+
+                </Box>
                 <Box height={'10%'}>
                     <RadioGroup
                         row
