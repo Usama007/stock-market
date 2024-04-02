@@ -121,7 +121,7 @@ export default function App() {
 
   }
 
-  
+
 
   const fetchData = async () => {
     try {
@@ -191,7 +191,6 @@ export default function App() {
   }
 
 
-
   return (
     <ThemeProvider theme={darkTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -203,22 +202,18 @@ export default function App() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={8} lg={9}>
               {data && <Graph data={data} setrange={setrange} range={range} graphLoading={graphLoading} />}
-
               <Grid container mt={1} spacing={2}>
                 <Grid item xs={12} md={6} lg={9}>
-                  {quarterlyData?.length > 0 || annualData?.length > 0 ? (
+                  {quarterlyData?.length > 0 || annualData?.length > 0 || incomeStatementLoading ? (
                     <IncomeStatement quarterlyData={quarterlyData} annualData={annualData} incomeStatementLoading={incomeStatementLoading} />
                   ) : (<Box sx={{ height: 200, mt: 5, display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-
                     <Alert severity="error" >No income statement found!!!</Alert>
                   </Box>)}
                 </Grid>
                 <Grid item xs={12} md={6} lg={3}>
-                  <FinancialScore financialScoreData={financialScoreData} financialScoreLoading={financialScoreLoading}/>
-               
+                  <FinancialScore financialScoreData={financialScoreData} financialScoreLoading={financialScoreLoading} />
                 </Grid>
               </Grid>
-
             </Grid>
             <Grid item xs={12} md={4} lg={3}>
               <CompanyInfo companyInfo={selectedCompany} companyInfoLoading={companyInfoLoading} />
@@ -226,7 +221,6 @@ export default function App() {
             </Grid>
           </Grid>
         </Main>
-
       </Box>
     </ThemeProvider>
   )
