@@ -2,7 +2,7 @@
 
 ## Description
 
-Stock Market is a Vite project for tracking stock prices, utilizing data from [Market Data](https://www.marketdata.app/docs/api).
+Stock Market is a Vite project for tracking stock prices, utilizing data from [FMP](https://financialmodelingprep.com).
 
 ## Installation
 
@@ -37,7 +37,7 @@ Stock Market is a Vite project for tracking stock prices, utilizing data from [M
 
 ## Usage
 
-1. **Before running the project, ensure you have obtained the necessary API token from [Market Data](https://www.marketdata.app/docs/api). This token should be stored in an environment variable named `VITE_TOKEN`.**
+1. **Before running the project, ensure you have obtained the necessary API token from [FMP](https://financialmodelingprep.com). This token should be stored in an environment variable named `VITE_TOKEN`.**
 
 2. **To run the project in development mode, execute the following command:**
 
@@ -65,7 +65,7 @@ Stock Market is a Vite project for tracking stock prices, utilizing data from [M
 
 ## Environment Variables
 
-- **`VITE_TOKEN`:** This environment variable should contain the API token obtained from [Market Data](https://www.marketdata.app/docs/api).
+- **`VITE_TOKEN`:** This environment variable should contain the API token obtained from [FMP](https://financialmodelingprep.com).
 
     Make sure to set this variable before running the project.
 
