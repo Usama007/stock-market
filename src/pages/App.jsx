@@ -10,7 +10,6 @@ import CompanyInfo from '../components/CompanyInfo';
 import IncomeStatement from '../components/IncomeStatement';
 import useDebounce from '../hooks/useDebounce';
 import FinancialScore from '../components/FinancialScore';
-
 export default function App() {
   const [open, setOpen] = useState(false);
   const [searchedCompany, setsearchedCompany] = useState('')
@@ -23,49 +22,35 @@ export default function App() {
   const [annualData, setannualData] = useState([])
   const [watchlist, setwatchlist] = useState([])
   const [financialScoreData, setfinancialScoreData] = useState(null)
-
-
-
-
   const [companyInfoLoading, setcompanyInfoLoading] = useState(true)
   const [watchlistLoading, setwatchlistLoading] = useState(false)
   const [graphLoading, setgraphLoading] = useState(true)
   const [companyListLoading, setcompanyListLoading] = useState(true)
   const [incomeStatementLoading, setincomeStatementLoading] = useState(true)
   const [financialScoreLoading, setfinancialScoreLoading] = useState(true)
-
-
   const from = getDateRange(range)?.from;
   const to = getDateRange(range)?.to;
-
   useEffect(() => {
     fetchCompanies();
   }, [searchedCompany]);
-
   useEffect(() => {
     fetchData()
     fetchIncomeStatement()
     fetchCompanyInfo();
     fetchFinancialScore()
   }, [selectedSymbol]);
-
   useEffect(() => {
     if (selectedCompany) {
       fetchData();
     }
   }, [range]);
-
   useEffect(() => {
-    if (companyList?.length > 0) {
-      fetchWatchList()
-    }
-  }, [companyList]);
-
+    fetchWatchList()
+  }, []);
   const fetchCompanies = async () => {
     try {
       setcompanyListLoading(true);
       let response;
-
       if (searchedCompany?.trim()?.length === 0) {
         response = await axios.get(
           `https://financialmodelingprep.com/api/v3/search?query=AA&limit=10&apikey=${import.meta.env.VITE_TOKEN}`
@@ -75,20 +60,14 @@ export default function App() {
           `https://financialmodelingprep.com/api/v3/search?query=${searchedCompany}&limit=10&apikey=${import.meta.env.VITE_TOKEN}`
         );
       }
-
-
       setcompanyList(response?.data);
       setcompanyListLoading(false)
-      if (response?.data?.length === 0) {
-        fetchWatchList('aapl')
-      }
+      
     } catch (error) {
       setcompanyListLoading(false)
       console.error('Error fetching data: ', error);
     }
   }
-
-
   const fetchCompanyInfo = async () => {
     try {
       setcompanyInfoLoading(true);
@@ -97,14 +76,11 @@ export default function App() {
       );
       setselectedCompany(response?.data?.[0])
       setcompanyInfoLoading(false)
-
     } catch (error) {
       setcompanyInfoLoading(false)
       console.error('Error fetching data: ', error);
     }
-
   }
-
   const fetchFinancialScore = async () => {
     try {
       setfinancialScoreLoading(true);
@@ -113,33 +89,24 @@ export default function App() {
       );
       setfinancialScoreData(response?.data?.[0])
       setfinancialScoreLoading(false)
-
     } catch (error) {
       setfinancialScoreLoading(false)
       console.error('Error fetching data: ', error);
     }
-
   }
-
-
-
   const fetchData = async () => {
     try {
       setgraphLoading(true);
       const response = await axios.get(
         `https://financialmodelingprep.com/api/v3/historical-price-full/${selectedSymbol}?from=${from}&to=${to}&apikey=${import.meta.env.VITE_TOKEN}`
       );
-
       setData(response?.data?.historical)
       setgraphLoading(false)
-
     } catch (error) {
       setgraphLoading(false)
       console.error('Error fetching data: ', error);
     }
   }
-
-
   const fetchIncomeStatement = async () => {
     try {
       setincomeStatementLoading(true)
@@ -154,10 +121,8 @@ export default function App() {
       setincomeStatementLoading(false)
     } catch (error) {
       console.error('Error fetching data: ', error);
-
     }
   }
-
   const fetchWatchList = async (param = null) => {
     try {
       setwatchlistLoading(true)
@@ -173,24 +138,19 @@ export default function App() {
         setwatchlistLoading(false)
       } else {
         setwatchlistLoading(false)
-
       }
     } catch (error) {
       setwatchlistLoading(false)
       console.error('Error fetching data: ', error);
     }
   };
-
   const doSearch = useDebounce((term) => {
     setsearchedCompany(term)
   }, 500);
-
   const handleChange = (e) => {
     const value = e.target.value;
     doSearch(value);
   }
-
-
   return (
     <ThemeProvider theme={darkTheme}>
       <Box sx={{ display: 'flex' }}>

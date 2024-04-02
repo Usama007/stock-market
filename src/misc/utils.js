@@ -1,8 +1,6 @@
 import { styled } from "@mui/material/styles";
 import { createTheme } from "@mui/material";
-
 export const drawerWidth = 280;
-
 export const darkTheme = createTheme({
   palette: {
     mode: "dark",
@@ -20,7 +18,6 @@ export const darkTheme = createTheme({
     },
   },
 });
-
 export const Main = styled("main", {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -39,7 +36,6 @@ export const Main = styled("main", {
     marginLeft: 0,
   }),
 }));
-
 export const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -47,24 +43,18 @@ export const DrawerHeader = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
   justifyContent: "flex-end",
 }));
-
 export function getDateRange(duration) {
   const durationPattern = /^(\d+)([DdWwMmYy])$/;
   const match = duration.match(durationPattern);
-
   if (!match) {
     throw new Error(
       'Invalid duration format. Use a format like "5D" for 5 days.'
     );
   }
-
   const value = parseInt(match[1], 10);
   const unit = match[2].toLowerCase();
-
   const today = new Date();
-  
   const startDate = new Date(today);
-
   switch (unit) {
     case "d":
       startDate.setDate(today.getDate() - value);
@@ -81,13 +71,10 @@ export function getDateRange(duration) {
     default:
       throw new Error("Invalid duration unit. Use one of D, W, M, or Y.");
   }
-
   const startDateString = startDate.toISOString().split("T")[0];
   const todayString = today.toISOString().split("T")[0];
-
   return { from: startDateString, to: todayString };
 }
-
 export const getFullForm = abbreviation => {
   switch (abbreviation) {
       case 'AAPL':

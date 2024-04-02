@@ -11,9 +11,6 @@ import { DrawerHeader, drawerWidth, getFullForm } from '../misc/utils';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import useDebounce from '../hooks/useDebounce';
-
-
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -30,7 +27,6 @@ const Search = styled('div')(({ theme }) => ({
         width: 'auto',
     },
 }));
-
 const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
@@ -40,7 +36,6 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'center',
 }));
-
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
@@ -54,24 +49,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         },
     },
 }));
-
-
-
-export default function SideMenu({ open, setOpen, companyList, setselectedSymbol, selectedSymbol, handleChange }) {
+export default function SideMenu({ open, setOpen, companyList, setselectedSymbol, selectedSymbol, handleChange, companyListLoading }) {
     const theme = useTheme();
-
     const handleDrawerClose = () => {
         setOpen(false);
     };
-
-   
-    
-
     const generateSkeleton = () => {
         let skeletons = [];
         for (let a = 0; a < 10; a++) {
             skeletons.push(
-                <Skeleton key={a} variant="rectangular" width={'90%'} height={50} sx={{ mt: 3 }} />
+                <Skeleton key={a} variant="rectangular" width={'90%'}  height={50} sx={{ mt: 3,ml:1.5 }} />
             );
         }
         return <>{skeletons}</>;
@@ -104,23 +91,26 @@ export default function SideMenu({ open, setOpen, companyList, setselectedSymbol
                 <StyledInputBase
                     placeholder="Search…"
                     // value={searchedCompany}
-                    onChange={e=>handleChange(e)}
+                    onChange={e => handleChange(e)}
                     inputProps={{ 'aria-label': 'search' }}
                 />
             </Search>
-            <List >
-                {companyList.map((text, index) => (
-                    <ListItem dense={true} key={index} disablePadding sx={{
-                        bgcolor: selectedSymbol
-                            === text
-                            && theme.palette.action.selected
-                    }}>
-                        <ListItemButton onClick={() => { setOpen(false); setselectedSymbol(text?.symbol) }}>
-                            <ListItemText primary={text?.name} secondary={text?.exchangeShortName}/>
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
+            {companyListLoading ? generateSkeleton() : (
+                <List >
+                    {companyList.map((text, index) => (
+                        <ListItem dense={true} key={index} disablePadding sx={{
+                            bgcolor: selectedSymbol
+                                === text
+                                && theme.palette.action.selected
+                        }}>
+                            <ListItemButton onClick={() => { setOpen(false); setselectedSymbol(text?.symbol) }}>
+                                <ListItemText primary={text?.name} secondary={text?.exchangeShortName} />
+                            </ListItemButton>
+                        </ListItem>
+                    ))}
+                </List>
+            )}
+
         </Drawer>
     )
 }

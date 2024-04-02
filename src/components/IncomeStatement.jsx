@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, CardContent, Grid, Skeleton } from '@mui/material';
 import moment from 'moment';
 import { Bar } from 'react-chartjs-2';
-
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -12,7 +11,6 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
-
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -21,9 +19,7 @@ ChartJS.register(
     Tooltip,
     Legend
 );
-
 export default function IncomeStatement({ quarterlyData, annualData, incomeStatementLoading }) {
-
     const chartDataQtr = {
         labels: quarterlyData.map((item) => moment(item.date).format('MMM YY')),
         datasets: [
@@ -41,7 +37,6 @@ export default function IncomeStatement({ quarterlyData, annualData, incomeState
             },
         ],
     };
-
     const chartDataAnl = {
         labels: annualData.map((item) => moment(item.date).format('MMM YY')),
         datasets: [
@@ -59,7 +54,6 @@ export default function IncomeStatement({ quarterlyData, annualData, incomeState
             },
         ],
     };
-
     const chartOptionsQtr = {
         scales: {
             y: {
@@ -80,7 +74,6 @@ export default function IncomeStatement({ quarterlyData, annualData, incomeState
             intersect: false,
         },
     };
-
     const chartOptionsAnl = {
         scales: {
             y: {
@@ -101,22 +94,18 @@ export default function IncomeStatement({ quarterlyData, annualData, incomeState
             intersect: false,
         },
     };
-
-
     if (incomeStatementLoading) {
         return (
-            <Grid container spacing={2} mt={1}>
+            <Grid container spacing={2} >
                 <Grid item xs={12} sm={12} md={6} lg={6}>
-                    <Skeleton variant="rectangular" width={'100%'} height={250} sx={{ mb: 3 }} />
+                    <Skeleton variant="rectangular" width={'100%'} height={300}  />
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
-                    <Skeleton variant="rectangular" width={'100%'} height={250} sx={{ mb: 3 }} />
+                    <Skeleton variant="rectangular" width={'100%'} height={300}  />
                 </Grid>
             </Grid>
         )
     }
-
-
     return (
         <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={6} lg={6}>

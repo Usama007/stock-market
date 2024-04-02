@@ -30,12 +30,8 @@ const columns = [
             </span>
         )
     },
-
 ];
-
-
 export default function WatchList({ watchlist, watchlistLoading }) {
-
     if (watchlistLoading) {
         return <Skeleton variant="rectangular" width={'100%'} height={400}  />
     }

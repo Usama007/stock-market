@@ -5,10 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Divider, List, ListItem, Skeleton } from '@mui/material';
-
-
 export default function CompanyInfo({ companyInfo, companyInfoLoading }) {
-
     const convertToMillionBillionTrillion = (value) => {
         if (value >= 1000000 && value < 1000000000) {
             return (value / 1000000).toFixed(2) + "M";
@@ -20,16 +17,12 @@ export default function CompanyInfo({ companyInfo, companyInfoLoading }) {
             return value.toFixed(2);
         }
     }
-
     if (companyInfoLoading) {
-        return <Skeleton variant="rectangular" width={'100%'} height={200} sx={{ mb: 1 }} />
+        return <Skeleton variant="rectangular" width={'100%'} height={350} sx={{ mb: 1 }} />
     }
-
     return (
         <Card sx={{ width: '100%', mb: 1 }} >
             <CardContent>
-
-
                 <Typography variant='h6' color="text.secondary">
                     {companyInfo?.companyName}  <Typography variant="overline" color="text.secondary">({companyInfo?.symbol})</Typography>
                 </Typography>
@@ -37,7 +30,6 @@ export default function CompanyInfo({ companyInfo, companyInfoLoading }) {
                     INDUSTRY : {companyInfo?.industry}
                 </Typography>
                 <List dense={false}>
-
                     <ListItem
                         secondaryAction={
                             <Typography variant='subtitle2'> {convertToMillionBillionTrillion(companyInfo?.volAvg)}  {companyInfo?.currency}</Typography>
@@ -62,7 +54,6 @@ export default function CompanyInfo({ companyInfo, companyInfoLoading }) {
                         <Typography variant='overline'>MARKET CAP</Typography>
                     </ListItem>
                     <Divider />
-                     
                     <ListItem
                         secondaryAction={
                             <Typography variant='subtitle2'> {companyInfo?.lastDiv}</Typography>
@@ -81,11 +72,9 @@ export default function CompanyInfo({ companyInfo, companyInfoLoading }) {
                     <Divider />
                 </List>
             </CardContent>
-
         </Card>
     );
 }
-
 // {
 //     "address": "1 Apple Park Way",
 //     "address2": null,

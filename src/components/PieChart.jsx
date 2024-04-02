@@ -1,6 +1,5 @@
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
-
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -11,7 +10,6 @@ import {
     Legend,
     ArcElement
 } from 'chart.js';
-
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -21,7 +19,6 @@ ChartJS.register(
     Legend,
     ArcElement
 );
-
 const PieChart = ({ data }) => {
   const chartData = {
     labels: ['Total Liabilities', 'Revenue', 'Total Assets'],
@@ -44,7 +41,6 @@ const PieChart = ({ data }) => {
       borderWidth: 1
     }]
   };
-
   return (
     <div style={{  height: 260 ,display:'flex',justifyContent:'center',alignItems:'center'}}>
       <Pie
@@ -64,5 +60,4 @@ const PieChart = ({ data }) => {
     </div>
   );
 };
-
 export default PieChart;
