@@ -5,7 +5,6 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Divider, List, ListItem, Skeleton } from '@mui/material';
-import { getFullForm } from '../misc/utils';
 
 
 export default function CompanyInfo({ companyInfo, companyInfoLoading }) {
@@ -23,74 +22,63 @@ export default function CompanyInfo({ companyInfo, companyInfoLoading }) {
     }
 
     if (companyInfoLoading) {
-        return <Skeleton variant="rectangular" width={'100%'} height={'38vh'} sx={{ mb: 3 }} />
+        return <Skeleton variant="rectangular" width={'100%'} height={200} sx={{ mb: 1 }} />
     }
 
     return (
-        <Card sx={{ width: '100%' }} >
-            <CardContent style={{ height: '38vh', overflow: 'auto' }}>
+        <Card sx={{ width: '100%', mb: 1 }} >
+            <CardContent>
 
 
-               <Typography variant='h5'  color="text.secondary">
-                     { getFullForm(companyInfo?.symbol?.[0])} 
+                <Typography variant='h6' color="text.secondary">
+                    {companyInfo?.companyName}  <Typography variant="overline" color="text.secondary">({companyInfo?.symbol})</Typography>
                 </Typography>
-            
-                <List dense={true}>
+                <Typography variant="overline" color="text.secondary">
+                    INDUSTRY : {companyInfo?.industry}
+                </Typography>
+                <List dense={false}>
 
                     <ListItem
                         secondaryAction={
-                            <Typography variant='subtitle2'> {convertToMillionBillionTrillion(companyInfo?.volume[0])}</Typography>
+                            <Typography variant='subtitle2'> {convertToMillionBillionTrillion(companyInfo?.volAvg)}  {companyInfo?.currency}</Typography>
                         }
                     >
                         <Typography variant='overline'>AVG VOLUME</Typography>
                     </ListItem>
                     <Divider />
-
                     <ListItem
                         secondaryAction={
-                            <Typography variant='subtitle2'> {companyInfo?.ask?.[0]}</Typography>
+                            <Typography variant='subtitle2'>   {companyInfo?.range}</Typography>
                         }
                     >
-                        <Typography variant='overline'>ASK PRICE</Typography>
-                    </ListItem>
-                    <Divider />
-                    <Divider />
-                    <ListItem
-                        secondaryAction={
-                            <Typography variant='subtitle2'> {companyInfo?.askSize?.[0]}</Typography>
-                        }
-                    >
-                        <Typography variant='overline'>ASK SIZE</Typography>
+                        <Typography variant='overline'>Range</Typography>
                     </ListItem>
                     <Divider />
                     <ListItem
                         secondaryAction={
-                            <Typography variant='subtitle2'> {companyInfo?.bid?.[0]}</Typography>
+                            <Typography variant='subtitle2'> {convertToMillionBillionTrillion(companyInfo?.mktCap)} {companyInfo?.currency}</Typography>
                         }
                     >
-                        <Typography variant='overline'>BID PRICE</Typography>
+                        <Typography variant='overline'>MARKET CAP</Typography>
                     </ListItem>
                     <Divider />
-
+                     
                     <ListItem
                         secondaryAction={
-                            <Typography variant='subtitle2'> {companyInfo?.bidSize?.[0]}</Typography>
+                            <Typography variant='subtitle2'> {companyInfo?.lastDiv}</Typography>
                         }
                     >
-                        <Typography variant='overline'>BID SIZE</Typography>
+                        <Typography variant='overline'>LAST DIVIDEND</Typography>
+                    </ListItem> 
+                    <Divider />
+                    <ListItem
+                        secondaryAction={
+                            <Typography variant='subtitle2'> {companyInfo?.exchange}</Typography>
+                        }
+                    >
+                        <Typography variant='overline'>EXCHANGE</Typography>
                     </ListItem>
                     <Divider />
-
-                    <ListItem
-                        secondaryAction={
-                            <Typography variant='subtitle2'> {companyInfo?.last?.[0]}</Typography>
-                        }
-                    >
-                        <Typography variant='overline'>LAST PRICE</Typography>
-                    </ListItem>
-              
-           
-                 
                 </List>
             </CardContent>
 

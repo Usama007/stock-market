@@ -24,7 +24,7 @@ const AppBar = styled(MuiAppBar, {
 
 
 
-export default function Header({ open, setOpen, companyName, companyInfoLoading ,companyList}) {
+export default function Header({ open, setOpen, selectedCompany, companyInfoLoading, companyList }) {
   const theme = useTheme();
 
   const handleDrawerOpen = () => {
@@ -34,19 +34,19 @@ export default function Header({ open, setOpen, companyName, companyInfoLoading 
   return (
     <AppBar position="fixed" open={open}>
       <Toolbar>
-        {companyList?.length>0 && (
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start"
-          sx={{ mr: 2, ...(open && { display: 'none' }) }}
-        >
-          <MenuIcon />
-        </IconButton>
+        {companyList?.length > 0 && (
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+          >
+            <MenuIcon />
+          </IconButton>
         )}
         {companyInfoLoading ? (<CircularProgress />) : (<Typography variant="h6" noWrap component="div">
-          {companyName}
+          {selectedCompany?.companyName}  <Typography variant="caption" >({selectedCompany?.exchangeShortName})</Typography>
         </Typography>)}
       </Toolbar>
     </AppBar>

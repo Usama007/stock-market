@@ -1,7 +1,7 @@
 import { styled } from "@mui/material/styles";
 import { createTheme } from "@mui/material";
 
-export const drawerWidth = 240;
+export const drawerWidth = 280;
 
 export const darkTheme = createTheme({
   palette: {
@@ -62,6 +62,7 @@ export function getDateRange(duration) {
   const unit = match[2].toLowerCase();
 
   const today = new Date();
+  
   const startDate = new Date(today);
 
   switch (unit) {
