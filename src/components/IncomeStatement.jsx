@@ -109,16 +109,16 @@ export default function IncomeStatement({ quarterlyData, annualData, incomeState
     return (
         <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={6} lg={6}>
-                <Card sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center',height: 300 }}>
+                <Card sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center',height: 200 }}>
                     <CardContent >
-                        <Bar data={chartDataQtr} options={chartOptionsQtr} style={{ height: 250, width: '100%' }} />
+                        <Bar data={chartDataQtr} options={chartOptionsQtr} style={{ width: '100%' }} />
                     </CardContent>
                 </Card>
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6}>
-                <Card sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center',height: 300 }}>
+                <Card sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center',height: 200 }}>
                     <CardContent>
-                        <Bar data={chartDataAnl} options={chartOptionsAnl} style={{ height: 500, width: '100%' }} />
+                        <Bar data={chartDataAnl} options={chartOptionsAnl} style={{ width: '100%' }} />
                     </CardContent>
                 </Card>
             </Grid>
