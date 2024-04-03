@@ -48,10 +48,10 @@ export default function WatchList({ watchlist, watchlistLoading }) {
                     getRowId={row => row?.symbol}
                     initialState={{
                         pagination: {
-                            paginationModel: { page: 0, pageSize: 7 },
+                            paginationModel: { page: 0, pageSize: 5 },
                         },
                     }}
-                    pageSizeOptions={[7]}
+                    pageSizeOptions={[5]}
                 />
             </CardContent>
         </Card>
