@@ -7,7 +7,7 @@ export default function FinancialScore({ financialScoreData, financialScoreLoadi
     }
     return (
         <Card>
-            <CardContent >
+            <CardContent sx={{height:260,display:'flex',justifyContent:'center',pt:0}}>
                 <PieChart data={financialScoreData} />
             </CardContent>
         </Card>
